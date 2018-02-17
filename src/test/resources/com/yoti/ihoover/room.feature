@@ -20,7 +20,7 @@ Feature: Room specification
     }
     """
 
-    Then room X, Y and coords X, Y should be 5, 5, 1, 2 and instructions 'NNESEESWNWW'
+    Then room X, Y and hoover coords X, Y should be 5, 5, 1, 2 and instructions 'NNESEESWNWW'
 
 
 

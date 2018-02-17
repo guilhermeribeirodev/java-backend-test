@@ -11,6 +11,7 @@ import static org.hamcrest.core.Is.is;
 public class RoomSteps {
 
     Room room;
+    CleanSchedule cleanSchedule;
 
     @Given("^a room with the following dimensions X = (\\d+) and Y = (\\d+)$")
     public void a_room_with_the_following_dimensions_X_and_Y(int x, int y)  {
@@ -26,16 +27,16 @@ public class RoomSteps {
     @Given("^the following json payload as ihoover input:$")
     public void theFollowingJsonPayloadAsIhooverInput(String json) throws Throwable {
         ObjectMapper mapper = new ObjectMapper();
-        room = mapper.readValue(json, Room.class);
+        cleanSchedule = mapper.readValue(json, CleanSchedule.class);
     }
 
-    @Then("^room X, Y and coords X, Y should be (\\d+), (\\d+), (\\d+), (\\d+) and instructions '([NWSE]+)'$")
+    @Then("^room X, Y and hoover coords X, Y should be (\\d+), (\\d+), (\\d+), (\\d+) and instructions '([NWSE]+)'$")
     public void roomXYAndCoordsXYShouldBe(int x, int y, int coordX, int coordY, String instructions) throws Throwable {
-        assertThat(room.getX(), is(x));
-        assertThat(room.getY(), is(y));
-        assertThat(room.coords.get(0), is(coordX));
-        assertThat(room.coords.get(1), is(coordY));
-        assertThat(room.getInstructions(), is(instructions));
+        assertThat(cleanSchedule.getRoom().getX(), is(x));
+        assertThat(cleanSchedule.getRoom().getY(), is(y));
+        assertThat(cleanSchedule.getHoover().getX(), is(coordX));
+        assertThat(cleanSchedule.getHoover().getY(), is(coordY));
+        assertThat(cleanSchedule.getInstructions(), is(instructions));
     }
 
 }
