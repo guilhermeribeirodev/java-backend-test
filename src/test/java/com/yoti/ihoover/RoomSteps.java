@@ -1,7 +1,6 @@
 package com.yoti.ihoover;
 
-import cucumber.api.DataTable;
-import cucumber.api.PendingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 
@@ -26,6 +25,17 @@ public class RoomSteps {
 
     @Given("^the following json payload as ihoover input:$")
     public void theFollowingJsonPayloadAsIhooverInput(String json) throws Throwable {
-        System.out.println(json);
+        ObjectMapper mapper = new ObjectMapper();
+        room = mapper.readValue(json, Room.class);
     }
+
+    @Then("^room X, Y and coords X, Y should be (\\d+), (\\d+), (\\d+), (\\d+) and instructions '([NWSE]+)'$")
+    public void roomXYAndCoordsXYShouldBe(int x, int y, int coordX, int coordY, String instructions) throws Throwable {
+        assertThat(room.getX(), is(x));
+        assertThat(room.getY(), is(y));
+        assertThat(room.coords.get(0), is(coordX));
+        assertThat(room.coords.get(1), is(coordY));
+        assertThat(room.getInstructions(), is(instructions));
+    }
+
 }
