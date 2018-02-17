@@ -11,11 +11,8 @@ public final class Room {
     }
 
     public static Room createRoom(int x, int y) {
-
         return new Room(x,y);
     }
-
-    Room(){}
 
     public int numberOfPositions() {
         return x*y;
