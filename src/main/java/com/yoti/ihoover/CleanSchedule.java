@@ -39,4 +39,8 @@ public class CleanSchedule {
     public String toString() {
         return hoover.getCurrentPosition() + hoover.getNumberOfPatchesRemoved();
     }
+
+    public HooverResult getResult(){
+        return new HooverResult(hoover);
+    }
 }

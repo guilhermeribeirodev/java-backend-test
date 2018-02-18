@@ -13,7 +13,7 @@ public class Application {
 
     @RequestMapping(value= "/", method = RequestMethod.POST)
     String home(@RequestBody CleanSchedule cleanSchedule) {
-        return cleanSchedule.toString();
+        return cleanSchedule.getResult().toString();
     }
 
     public static void main(String[] args) throws Exception {

@@ -35,8 +35,8 @@ public class RoomSteps {
     public void roomXYAndCoordsXYShouldBe(int x, int y, int coordX, int coordY, String instructions) throws Throwable {
         assertThat(cleanSchedule.getRoom().getX(), is(x));
         assertThat(cleanSchedule.getRoom().getY(), is(y));
-        assertThat(cleanSchedule.getHoover().getX(), is(coordX));
-        assertThat(cleanSchedule.getHoover().getY(), is(coordY));
+        assertThat(cleanSchedule.getHoover().getCoord().getX(), is(coordX));
+        assertThat(cleanSchedule.getHoover().getCoord(), is(coordY));
         assertThat(cleanSchedule.getInstructions(), is(instructions));
     }
 
