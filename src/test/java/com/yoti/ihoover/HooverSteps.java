@@ -20,7 +20,7 @@ public class HooverSteps {
     public void a_room_with_the_following_dimensions_X_and_Y(int roomX, int roomY, int coordX, int coordY)  {
 
         hoover = new Hoover(coordX, coordY);
-        room = new Room(roomX, roomY);
+        room = Room.createRoom(roomX, roomY);
         assertThat(hoover.getCurrentPosition(), is(String.format("'coords' : [%d, %d]", coordX, coordY)));
     }
 

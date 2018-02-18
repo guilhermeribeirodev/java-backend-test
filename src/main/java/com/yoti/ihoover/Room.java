@@ -8,9 +8,9 @@ public final class Room {
 
     private int x;
     private int y;
-    private List<Patch> patches = new ArrayList<>();
+    private final List<Patch> patches = new ArrayList<>();
 
-    Room(int x, int y) {
+    private Room(int x, int y) {
         this.x = x;
         this.y = y;
     }
@@ -32,7 +32,7 @@ public final class Room {
     }
 
     public void setPatches(ArrayList<Patch> patches) {
-        this.patches = patches;
+        this.patches.addAll(patches);
     }
 
     public boolean removePatch(int x, int y) {
