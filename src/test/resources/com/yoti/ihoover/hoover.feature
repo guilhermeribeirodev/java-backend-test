@@ -20,6 +20,11 @@ Feature: hoover specification
     Given a hoover starting on a room of 2 x 2 dimensions with X = 0 and Y = 0 as coords
     And having patches of dirty by [1,2] and [0,1] coords
     When requested to move with instructions 'NNEE'
+    Then hoover removed patches would be 2
+
+    Given a hoover starting on a room of 2 x 2 dimensions with X = 0 and Y = 0 as coords
+    And having patches of dirty by [0,2] and [0,1] coords
+    When requested to move with instructions 'N'
     Then hoover removed patches would be 1
 
 

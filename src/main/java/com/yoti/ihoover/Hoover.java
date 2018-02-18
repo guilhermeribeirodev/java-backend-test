@@ -6,7 +6,7 @@ public class Hoover {
 
     int x;
     int y;
-    private Integer numberOfPatchesRemoved;
+    private int numberOfPatchesRemoved;
 
     public Hoover(List<Integer> coords) {
         this.x = coords.get(0);
@@ -27,13 +27,16 @@ public class Hoover {
     }
 
     public void move(String instructions, Room room) {
-        for(char c : instructions.toCharArray())
-                switch(c){
-                    case 'N': if(y < room.getY()) y++; break;
-                    case 'S': if(y > 0) y--; break;
-                    case 'E': if(x < room.getX()) x++; break;
-                    case 'W': if(x > 0) x--; break;
-                }
+        for(char c : instructions.toCharArray()){
+            switch(c){
+                case 'N': if(y < room.getY()) y++; break;
+                case 'S': if(y > 0) y--; break;
+                case 'E': if(x < room.getX()) x++; break;
+                case 'W': if(x > 0) x--; break;
+            }
+            if(room.removePatch(x,y)) numberOfPatchesRemoved++;
+        }
+
     }
 
     public String getCurrentPosition() {

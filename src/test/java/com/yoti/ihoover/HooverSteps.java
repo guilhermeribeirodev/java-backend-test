@@ -5,6 +5,9 @@ import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 
@@ -33,11 +36,11 @@ public class HooverSteps {
 
     @And("^having patches of dirty by \\[(\\d+),(\\d+)\\] and \\[(\\d+),(\\d+)\\] coords$")
     public void havingPatchesOfDirtyByAndCoords(int patch_1X, int patch_1Y, int patch_2X, int patch_2Y) throws Throwable {
-        room.setPatches(patch_1X, patch_2X, patch_1Y, patch_2Y);
+        room.setPatches(new ArrayList<Patch>(Arrays.asList(new Patch(patch_1X,patch_1Y), new Patch(patch_2X,patch_2Y))));
     }
 
     @Then("^hoover removed patches would be (\\d+)$")
-    public void hooverRemovedPatchesWouldBe(int arg0) throws Throwable {
-        assertThat(hoover.getNumberOfPatchesRemoved(), is(1));
+    public void hooverRemovedPatchesWouldBe(int patches) throws Throwable {
+        assertThat(hoover.getNumberOfPatchesRemoved(), is(patches));
     }
 }
