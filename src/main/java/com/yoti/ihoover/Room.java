@@ -1,17 +1,9 @@
 package com.yoti.ihoover;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-
-import java.util.List;
-
 public final class Room {
 
     private int x;
     private int y;
-    List<Integer> coords;
-    List<List<Integer>> patches;
-    private String instructions;
 
     Room(int x, int y) {
         this.x = x;
@@ -32,9 +24,5 @@ public final class Room {
 
     public int getY() {
         return y;
-    }
-
-    public String getInstructions() {
-        return instructions;
     }
 }

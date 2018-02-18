@@ -12,6 +12,7 @@ public class RoomSteps {
 
     Room room;
     CleanSchedule cleanSchedule;
+    Hoover hoover;
 
     @Given("^a room with the following dimensions X = (\\d+) and Y = (\\d+)$")
     public void a_room_with_the_following_dimensions_X_and_Y(int x, int y)  {
