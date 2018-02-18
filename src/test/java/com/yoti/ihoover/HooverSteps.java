@@ -10,17 +10,19 @@ import static org.hamcrest.core.Is.is;
 public class HooverSteps {
 
     private Hoover hoover;
+    private Room room;
 
     @Given("^a hoover starting on a room of (\\d+) x (\\d+) dimensions with X = (\\d+) and Y = (\\d+) as coords$")
     public void a_room_with_the_following_dimensions_X_and_Y(int roomX, int roomY, int coordX, int coordY)  {
 
         hoover = new Hoover(coordX, coordY);
+        room = new Room(roomX, roomY);
         assertThat(hoover.getCurrentPosition(), is(String.format("'coords' : [%d, %d]", coordX, coordY)));
     }
 
     @When("^requested to move with instructions '([NWSE]+)'$")
     public void requestedToMoveWithInstructionsNNNEEE(String instructions) throws Throwable {
-        hoover.move(instructions);
+        hoover.move(instructions, room);
     }
 
     @Then("^hoover current position should be X = (\\d+) and Y = (\\d+)$")

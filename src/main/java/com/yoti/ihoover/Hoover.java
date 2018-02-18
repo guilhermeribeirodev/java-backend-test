@@ -25,15 +25,14 @@ public class Hoover {
         return y;
     }
 
-    public void move(String instructions) {
+    public void move(String instructions, Room room) {
         for(char c : instructions.toCharArray())
-            switch(c){
-                case 'N': y++; break;
-                case 'S': y--; break;
-                case 'E': x++; break;
-                case 'W': x--; break;
-
-            }
+                switch(c){
+                    case 'N': if(y < room.getY()) y++; break;
+                    case 'S': if(y > 0) y--; break;
+                    case 'E': if(x < room.getX()) x++; break;
+                    case 'W': if(x > 0) x--; break;
+                }
     }
 
     public String getCurrentPosition() {

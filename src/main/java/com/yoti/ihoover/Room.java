@@ -25,4 +25,8 @@ public final class Room {
     public int getY() {
         return y;
     }
+
+    public boolean isWithinBoundaries(int x, int y) {
+        return x < this.x && y < this.y;
+    }
 }
