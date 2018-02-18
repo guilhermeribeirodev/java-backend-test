@@ -15,5 +15,12 @@ Feature: hoover specification
     When requested to move with instructions 'SSSEEWWWW'
     Then hoover current position should be X = 0 and Y = 0
 
+  Scenario: hoover should remove patch when its position matches
+
+    Given a hoover starting on a room of 2 x 2 dimensions with X = 0 and Y = 0 as coords
+    And having patches of dirty by [1,2] and [0,1] coords
+    When requested to move with instructions 'NNEE'
+    Then hoover removed patches would be 1
+
 
 

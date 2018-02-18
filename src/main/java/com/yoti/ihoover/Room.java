@@ -1,9 +1,14 @@
 package com.yoti.ihoover;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 public final class Room {
 
     private int x;
     private int y;
+    private List<Integer> patches = new ArrayList<>();
 
     Room(int x, int y) {
         this.x = x;
@@ -26,7 +31,7 @@ public final class Room {
         return y;
     }
 
-    public boolean isWithinBoundaries(int x, int y) {
-        return x < this.x && y < this.y;
+    public void setPatches(Integer ... patches) {
+        Collections.addAll(this.patches, patches);
     }
 }

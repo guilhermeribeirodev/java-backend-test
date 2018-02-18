@@ -6,6 +6,7 @@ public class Hoover {
 
     int x;
     int y;
+    private Integer numberOfPatchesRemoved;
 
     public Hoover(List<Integer> coords) {
         this.x = coords.get(0);
@@ -37,5 +38,9 @@ public class Hoover {
 
     public String getCurrentPosition() {
         return String.format("'coords' : [%d, %d]", x, y);
+    }
+
+    public Integer getNumberOfPatchesRemoved() {
+        return numberOfPatchesRemoved;
     }
 }
