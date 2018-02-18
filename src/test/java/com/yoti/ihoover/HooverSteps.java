@@ -25,7 +25,7 @@ public class HooverSteps {
     }
 
     @When("^requested to move with instructions '([NWSE]+)'$")
-    public void requestedToMoveWithInstructionsNNNEEE(String instructions) throws Throwable {
+    public void requestedToMoveWithInstructions(String instructions) throws Throwable {
         hoover.move(instructions, room);
     }
 
