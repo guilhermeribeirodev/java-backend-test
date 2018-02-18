@@ -4,6 +4,8 @@ Feature: Room specification
     Given a room with the following dimensions X = 2 and Y = 2
     Then numberOfPositions of room must be 4
 
+  # This would not be the right place to test the json payload as it isn't part of the problem domain
+  # Therefore I'm taking advantage of cucumber flexibility
   Scenario: Creation of a room based on a json payload
 
     Given the following json payload as ihoover input:
