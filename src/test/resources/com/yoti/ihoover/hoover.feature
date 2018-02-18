@@ -27,5 +27,14 @@ Feature: hoover specification
     When requested to move with instructions 'N'
     Then hoover removed patches would be 1
 
+  @targetScenario
+  Scenario: hoover should pass test README.md conditions
+
+    Given a hoover starting on a room of 5 x 5 dimensions with X = 1 and Y = 2 as coords
+    And having patches of dirty by [1,0] and [2,2] and [2,3] coords
+    When requested to move with instructions 'NNESEESWNWW'
+    Then hoover removed patches would be 1
+    Then hoover current position should be X = 1 and Y = 3
+
 
 

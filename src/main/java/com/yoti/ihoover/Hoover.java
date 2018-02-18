@@ -8,12 +8,12 @@ public class Hoover {
     int y;
     private int numberOfPatchesRemoved;
 
-    public Hoover(List<Integer> coords) {
+    private Hoover(List<Integer> coords) {
         this.x = coords.get(0);
         this.y = coords.get(1);
     }
 
-    public Hoover(int x, int y) {
+    private Hoover(int x, int y) {
         this.x = x;
         this.y = y;
     }
@@ -29,10 +29,10 @@ public class Hoover {
     public void move(String instructions, Room room) {
         for(char c : instructions.toCharArray()){
             switch(c){
-                case 'N': if(y < room.getY()) y++; break;
-                case 'S': if(y > 0) y--; break;
-                case 'E': if(x < room.getX()) x++; break;
-                case 'W': if(x > 0) x--; break;
+                case 'N': if(y < room.getY()) ++y; break;
+                case 'S': if(y > 0) --y; break;
+                case 'E': if(x < room.getX()) ++x; break;
+                case 'W': if(x > 0) --x; break;
             }
             if(room.removePatch(x,y)) numberOfPatchesRemoved++;
         }
@@ -45,5 +45,13 @@ public class Hoover {
 
     public Integer getNumberOfPatchesRemoved() {
         return numberOfPatchesRemoved;
+    }
+
+    public static Hoover createFromList(List<Integer> coords) {
+        return new Hoover(coords);
+    }
+
+    public static Hoover createHoover(int coordX, int coordY) {
+        return new Hoover(coordX,coordY);
     }
 }

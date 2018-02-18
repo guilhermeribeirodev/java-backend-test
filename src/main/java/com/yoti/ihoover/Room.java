@@ -1,8 +1,11 @@
 package com.yoti.ihoover;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public final class Room {
 
@@ -31,11 +34,19 @@ public final class Room {
         return y;
     }
 
-    public void setPatches(ArrayList<Patch> patches) {
+    public void setPatches(List<Patch> patches) {
         this.patches.addAll(patches);
     }
 
     public boolean removePatch(int x, int y) {
         return patches.remove(new Patch(x,y));
+    }
+
+    public void fromJsonArray(List<List<Integer>> patches) {
+        for(List<Integer> lst : patches){
+            this.patches.add(new Patch(lst.get(0), lst.get(1)));
+        }
+
+
     }
 }

@@ -1,5 +1,8 @@
 package com.yoti.ihoover;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.util.Objects;
 
 public class Patch {
@@ -10,6 +13,12 @@ public class Patch {
     public Patch(int x, int y) {
         this.x = x;
         this.y = y;
+    }
+
+    @JsonCreator
+    public Patch(@JsonProperty("patches") final int[] patches){
+        this.x = patches[0];
+        this.y = patches[1];
     }
 
     @Override
