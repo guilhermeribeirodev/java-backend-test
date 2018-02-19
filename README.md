@@ -31,6 +31,15 @@ After running the jar can be tested with the following command:
     EOF
 ```
 
+#### Docker
+
+You can use Docker as well:
+
+```$xslt
+    docker build -t ihoover .
+    docker run -ti -p 8080:8080 ihoover
+```
+
 
 ## Introduction
 
