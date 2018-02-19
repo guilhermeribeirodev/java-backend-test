@@ -1,5 +1,6 @@
 package com.yoti.ihoover;
 
+
 import javax.persistence.*;
 
 @Entity

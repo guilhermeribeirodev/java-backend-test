@@ -1,3 +1,19 @@
+## Test considerations
+
+This test was made in order to use as much as possible from the role specs.
+It uses Spring Boot as application and a H2 database.
+Cucumber was used as BDD tool to facilitate code validation
+
+#### Running it
+
+The project can run via executable jar as:
+```$xslt
+    mvn clean install && java -jar target/ihoover-1.0-SNAPSHOT.jar
+```
+
+
+
+
 ## Introduction
 
 You will write a service that navigates a imaginary robotic hoover (much like a [Roomba](https://en.wikipedia.org/wiki/Roomba)) through an equally imaginary room based on:

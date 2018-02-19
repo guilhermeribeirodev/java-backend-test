@@ -10,19 +10,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 @SpringBootApplication
-@RestController
 public class Application {
 
-    @Autowired
-    HooverResultRepository hooverResultRepository;
-
-    @RequestMapping(value= "/", method = RequestMethod.POST)
-    String home(@RequestBody CleanSchedule cleanSchedule) {
-        hooverResultRepository.save(cleanSchedule.getResult());
-        return cleanSchedule.getResult().toString();
-    }
-
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
     }
 
