@@ -1,0 +1,1 @@
+INSERT INTO hoover_result (id, coordsX, coordsY, patches) VALUES (1, 2, 2, 2)
