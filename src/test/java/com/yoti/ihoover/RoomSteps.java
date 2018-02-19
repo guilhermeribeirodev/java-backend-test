@@ -1,6 +1,8 @@
 package com.yoti.ihoover;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.yoti.ihoover.domain.CleanSchedule;
+import com.yoti.ihoover.domain.Room;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 

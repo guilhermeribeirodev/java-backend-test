@@ -1,7 +1,8 @@
-package com.yoti.ihoover;
+package com.yoti.ihoover.domain;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.yoti.ihoover.HooverResult;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package com.yoti.ihoover;
+package com.yoti.ihoover.domain;
 
 import java.util.List;
 

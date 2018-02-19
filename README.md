@@ -11,7 +11,25 @@ The project can run via executable jar as:
     mvn clean install && java -jar target/ihoover-1.0-SNAPSHOT.jar
 ```
 
-
+After running the jar can be tested with the following command:
+```$xslt
+    curl -0 -v -X POST http://localhost:8080 \
+    -H "Expect:" \
+    -H 'Content-Type: application/json; charset=utf-8' \
+    -d @- << EOF
+    
+    {
+          "roomSize" : [5, 5],
+          "coords" : [1, 2],
+          "patches" : [
+            [1, 0],
+            [2, 2],
+            [2, 3]
+          ],
+          "instructions" : "NNESEESWNWW"
+        }
+    EOF
+```
 
 
 ## Introduction

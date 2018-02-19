@@ -1,6 +1,8 @@
 package com.yoti.ihoover;
 
-import cucumber.api.PendingException;
+import com.yoti.ihoover.domain.Hoover;
+import com.yoti.ihoover.domain.Patch;
+import com.yoti.ihoover.domain.Room;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;

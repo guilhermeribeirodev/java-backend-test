@@ -1,6 +1,6 @@
 package com.yoti.ihoover.controller;
 
-import com.yoti.ihoover.CleanSchedule;
+import com.yoti.ihoover.domain.CleanSchedule;
 import com.yoti.ihoover.repository.HooverResultRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;

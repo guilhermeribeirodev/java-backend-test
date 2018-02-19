@@ -1,6 +1,8 @@
 package com.yoti.ihoover;
 
 
+import com.yoti.ihoover.domain.Hoover;
+
 import javax.persistence.*;
 
 @Entity
