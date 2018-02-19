@@ -12,12 +12,10 @@ public class RoomSteps {
 
     Room room;
     CleanSchedule cleanSchedule;
-    Hoover hoover;
 
     @Given("^a room with the following dimensions X = (\\d+) and Y = (\\d+)$")
     public void a_room_with_the_following_dimensions_X_and_Y(int x, int y)  {
         room = Room.createRoom(x,y);
-
     }
 
     @Then("^numberOfPositions of room must be (\\d+)$")
@@ -33,10 +31,10 @@ public class RoomSteps {
 
     @Then("^room X, Y and hoover coords X, Y should be (\\d+), (\\d+), (\\d+), (\\d+) and instructions '([NWSE]+)'$")
     public void roomXYAndCoordsXYShouldBe(int x, int y, int coordX, int coordY, String instructions) throws Throwable {
-        assertThat(cleanSchedule.getRoom().getX(), is(x));
-        assertThat(cleanSchedule.getRoom().getY(), is(y));
-        assertThat(cleanSchedule.getHoover().getCoord().getX(), is(coordX));
-        assertThat(cleanSchedule.getHoover().getCoord(), is(coordY));
+        assertThat(cleanSchedule.getRoom().getCoord().getX(), is(x));
+        assertThat(cleanSchedule.getRoom().getCoord().getY(), is(y));
+        assertThat(cleanSchedule.getHoover().getInitialCoord().getX(), is(coordX));
+        assertThat(cleanSchedule.getHoover().getInitialCoord().getY(), is(coordY));
         assertThat(cleanSchedule.getInstructions(), is(instructions));
     }
 

@@ -7,18 +7,15 @@ import java.util.Objects;
 
 public class Patch {
 
-    int x;
-    int y;
+    Coord coord;
 
     public Patch(int x, int y) {
-        this.x = x;
-        this.y = y;
+        this.coord = Coord.createCoord(x,y);
     }
 
     @JsonCreator
     public Patch(@JsonProperty("patches") final int[] patches){
-        this.x = patches[0];
-        this.y = patches[1];
+        this.coord = Coord.createCoord(patches[0], patches[1]);
     }
 
     @Override
@@ -26,13 +23,12 @@ public class Patch {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Patch patch = (Patch) o;
-        return x == patch.x &&
-                y == patch.y;
+        return coord.getX() == patch.coord.getX() &&
+                coord.getY() == patch.coord.getY();
     }
 
     @Override
     public int hashCode() {
-
-        return Objects.hash(x, y);
+        return Objects.hash(coord.getX(), coord.getY());
     }
 }

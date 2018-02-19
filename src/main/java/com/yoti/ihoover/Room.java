@@ -1,21 +1,15 @@
 package com.yoti.ihoover;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public final class Room {
 
-    private int x;
-    private int y;
+    private Coord coord;
     private final List<Patch> patches = new ArrayList<>();
 
     private Room(int x, int y) {
-        this.x = x;
-        this.y = y;
+        this.coord = Coord.createCoord(x,y);
     }
 
     public static Room createRoom(int x, int y) {
@@ -23,15 +17,7 @@ public final class Room {
     }
 
     public int numberOfPositions() {
-        return x*y;
-    }
-
-    public int getX() {
-        return x;
-    }
-
-    public int getY() {
-        return y;
+        return coord.getX()*coord.getY();
     }
 
     public void setPatches(List<Patch> patches) {
@@ -47,6 +33,9 @@ public final class Room {
             this.patches.add(new Patch(lst.get(0), lst.get(1)));
         }
 
+    }
 
+    public Coord getCoord() {
+        return coord;
     }
 }

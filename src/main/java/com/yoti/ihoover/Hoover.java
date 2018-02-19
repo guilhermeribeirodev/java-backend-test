@@ -5,18 +5,20 @@ import java.util.List;
 public class Hoover {
 
     private int numberOfPatchesRemoved;
-    private Coord coord;
+    private final Coord coord;
+    private final Coord initialCoord;
 
     private Hoover(Coord coord) {
         this.coord = coord;
+        initialCoord = Coord.createCoord(coord.getX(), coord.getY());
     }
 
     public void move(String instructions, Room room) {
         for(char c : instructions.toCharArray()){
             switch(c){
-                case 'N': if(coord.getY() < room.getY()) coord._N(); break;
+                case 'N': if(coord.getY() < room.getCoord().getY()) coord._N(); break;
                 case 'S': if(coord.getY() > 0) coord._S(); break;
-                case 'E': if(coord.getX() < room.getX()) coord._E(); break;
+                case 'E': if(coord.getX() < room.getCoord().getX()) coord._E(); break;
                 case 'W': if(coord.getX() > 0) coord._W(); break;
             }
             if(room.removePatch(coord.getX(),coord.getY())) numberOfPatchesRemoved++;
@@ -42,5 +44,9 @@ public class Hoover {
 
     public Coord getCoord() {
         return coord;
+    }
+
+    public Coord getInitialCoord() {
+        return initialCoord;
     }
 }
