@@ -38,7 +38,9 @@ public class HooverResultIntTest {
     @Test
     public void testCrit(){
         hooverResultRepository.save(new Hoover());
-        assertThat(hooverResultRepository.findAllByBuilder().next(), Is.is(new Hoover()));
+        Hoover hoover = new Hoover();
+        hoover.setId(1L);
+        assertThat(hooverResultRepository.findAllByBuilder().next(), Is.is(hoover));
     }
 
 //    @Test

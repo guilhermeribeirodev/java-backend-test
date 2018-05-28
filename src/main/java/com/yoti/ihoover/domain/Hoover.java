@@ -90,6 +90,7 @@ public class Hoover {
 
     @Override
     public int hashCode() {
+        if(id==null) id = 1L;
         return 17 + id.hashCode();
     }
 }
