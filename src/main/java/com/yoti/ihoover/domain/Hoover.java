@@ -77,4 +77,19 @@ public class Hoover {
     public void setNumberOfPatchesRemoved(int numberOfPatchesRemoved) {
         this.numberOfPatchesRemoved = numberOfPatchesRemoved;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Hoover hoover = (Hoover) o;
+
+        return id.equals(hoover.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return 17 + id.hashCode();
+    }
 }

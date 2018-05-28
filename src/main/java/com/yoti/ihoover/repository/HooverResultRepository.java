@@ -11,13 +11,13 @@ import java.util.Iterator;
 
 @Repository
 @Transactional(readOnly = true)
-public class HooverResultRepository {
+public class HooverResultRepository<T> {
 
     @PersistenceContext
     private EntityManager em;
 
     @Transactional
-    public void save(HooverResult hooverResult) {
+    public void save(T hooverResult) {
         try {
             em.persist(hooverResult);
             em.flush();
@@ -33,7 +33,28 @@ public class HooverResultRepository {
     }
 
 
-    public Iterator<Tuple> findAllByBuilder() {
+    public Iterator<Hoover> findAllByBuilder() {
+        CriteriaBuilder cb = em.getCriteriaBuilder();
+
+        //CriteriaQuery<Object> query = cb.createQuery();
+        CriteriaQuery<Hoover> q = cb.createQuery(Hoover.class);
+        Root<Hoover> hoover = q.from(Hoover.class);
+        //Fetch<HooverResult,Hoover> fetch = report.fetch("hoover", JoinType.INNER);
+        //fetch.fetch("hooverResult", JoinType.INNER);
+
+        Predicate predicate = cb.and(
+
+                cb.equal( hoover.get("id"), 1L)
+        );
+
+        q.where(predicate);
+        TypedQuery<Hoover> query = em.createQuery(q);
+        //query.getResultList().iterator();
+
+        return query.getResultList().iterator();
+    }
+
+    public Iterator<Tuple> findAllByBuilderTuple() {
         CriteriaBuilder cb = em.getCriteriaBuilder();
 
         //CriteriaQuery<Object> query = cb.createQuery();

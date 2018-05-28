@@ -1,5 +1,7 @@
 package com.yoti.ihoover.integration;
 
+import com.yoti.ihoover.HooverResult;
+import com.yoti.ihoover.domain.Hoover;
 import com.yoti.ihoover.repository.HooverResultRepository;
 import org.hamcrest.core.Is;
 import org.junit.Test;
@@ -35,7 +37,8 @@ public class HooverResultIntTest {
 
     @Test
     public void testCrit(){
-        assertThat(hooverResultRepository.findAllByBuilder(), Is.is(1));
+        hooverResultRepository.save(new Hoover());
+        assertThat(hooverResultRepository.findAllByBuilder().next(), Is.is(new Hoover()));
     }
 
 //    @Test
