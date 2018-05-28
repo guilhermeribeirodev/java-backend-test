@@ -1,7 +1,9 @@
 package com.yoti.ihoover.controller;
 
+import com.yoti.ihoover.HooverResult;
 import com.yoti.ihoover.domain.CleanSchedule;
 import com.yoti.ihoover.repository.HooverResultRepository;
+import com.yoti.ihoover.service.HooverService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,11 +14,11 @@ import org.springframework.web.bind.annotation.RestController;
 public class CleanScheduleController {
 
     @Autowired
-    HooverResultRepository hooverResultRepository;
+    HooverService hooverService;
 
-    @RequestMapping(value= "/", method = RequestMethod.POST)
+    @RequestMapping(value= "/clean", method = RequestMethod.POST)
     String home(@RequestBody CleanSchedule cleanSchedule) {
-        hooverResultRepository.save(cleanSchedule.getResult());
-        return cleanSchedule.getResult().toString();
+        HooverResult res = hooverService.result(cleanSchedule);
+        return res.toString();
     }
 }

@@ -1,29 +1,45 @@
 package com.yoti.ihoover.domain;
 
+import com.yoti.ihoover.HooverResult;
+
+import javax.persistence.*;
 import java.util.List;
 
+@Entity
+@Table(name = "hoover")
 public class Hoover {
 
+    @Id
+    @SequenceGenerator(name="hoover_seq",
+            sequenceName="hoover_seq",
+            allocationSize=1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE,
+            generator="hoover_seq")
+    @Column(name = "id", updatable = false, unique = true)
+    private Long id;
+
     private int numberOfPatchesRemoved;
-    private final Coord coord;
-    private final Coord initialCoord;
+    @Transient
+    private  Coord coord;
+    @Transient
+    private  Coord initialCoord;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    private HooverResult hooverResult;
 
     private Hoover(Coord coord) {
         this.coord = coord;
         initialCoord = Coord.createCoord(coord.getX(), coord.getY());
     }
 
+    public Hoover() {
+    }
+
     public void move(String instructions, Room room) {
         for(char c : instructions.toCharArray()){
-            switch(c){
-                case 'N': if(coord.getY() < room.getCoord().getY()) coord._N(); break;
-                case 'S': if(coord.getY() > 0) coord._S(); break;
-                case 'E': if(coord.getX() < room.getCoord().getX()) coord._E(); break;
-                case 'W': if(coord.getX() > 0) coord._W(); break;
-            }
+            coord.command(c, room);
             if(room.removePatch(coord.getX(),coord.getY())) numberOfPatchesRemoved++;
         }
-
     }
 
     public String getCurrentPosition() {
@@ -48,5 +64,17 @@ public class Hoover {
 
     public Coord getInitialCoord() {
         return initialCoord;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setNumberOfPatchesRemoved(int numberOfPatchesRemoved) {
+        this.numberOfPatchesRemoved = numberOfPatchesRemoved;
     }
 }

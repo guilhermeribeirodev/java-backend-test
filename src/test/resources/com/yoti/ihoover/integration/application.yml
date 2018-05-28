@@ -3,7 +3,7 @@
 ###
 spring:
   datasource:
-    url: jdbc:postgresql://localhost/
+    url: jdbc:postgresql://localhost/user
     platform: postgres
     username: user
     password: password123
@@ -17,13 +17,13 @@ spring:
         --show_sql: true
         use_sql_comments: true
         --format_sql: true
-  h2:
-    console:
-      enabled: true
-      path: /console
-      settings:
-        trace: false
-        web-allow-others: false
+#  h2:
+#    console:
+#      enabled: true
+#      path: /console
+#      settings:
+#        trace: false
+#        web-allow-others: false
 
 server:
     port: 8080

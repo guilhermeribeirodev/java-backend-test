@@ -22,19 +22,29 @@ public class Coord {
         return y;
     }
 
-    public void _N(){
+    private void _N(){
         y++;
     }
 
-    public void _S(){
+    private void _S(){
         y--;
     }
 
-    public void _E(){
+    private void _E(){
         x++;
     }
 
-    public void _W(){
+    private void _W(){
         x--;
     }
+
+    public void command(char c, Room room){
+        switch(c){
+            case 'N': if(getY() < room.getCoord().getY()) _N(); break;
+            case 'S': if(getY() > 0) _S(); break;
+            case 'E': if(getX() < room.getCoord().getX()) _E(); break;
+            case 'W': if(getX() > 0) _W(); break;
+        }
+    }
+
 }

@@ -12,8 +12,12 @@ public final class Room {
         this.coord = Coord.createCoord(x,y);
     }
 
+    public Room(Coord coord) {
+        this.coord = coord;
+    }
+
     public static Room createRoom(int x, int y) {
-        return new Room(x,y);
+        return new Room(Coord.createCoord(x,y));
     }
 
     public int numberOfPositions() {
@@ -22,6 +26,10 @@ public final class Room {
 
     public void setPatches(List<Patch> patches) {
         this.patches.addAll(patches);
+    }
+
+    public List<Patch> getPatches() {
+        return patches;
     }
 
     public boolean removePatch(int x, int y) {

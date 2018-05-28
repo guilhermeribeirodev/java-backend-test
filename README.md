@@ -13,7 +13,7 @@ The project can run via executable jar as:
 
 After running the jar can be tested with the following command:
 ```$xslt
-    curl -0 -v -X POST http://localhost:8080 \
+    curl -0 -v -X POST localhost:8080 \
     -H "Expect:" \
     -H 'Content-Type: application/json; charset=utf-8' \
     -d @- << EOF

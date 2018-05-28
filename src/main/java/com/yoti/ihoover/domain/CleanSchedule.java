@@ -42,6 +42,6 @@ public class CleanSchedule {
     }
 
     public HooverResult getResult(){
-        return new HooverResult(hoover);
+        return new HooverResult(hoover, room);
     }
 }
