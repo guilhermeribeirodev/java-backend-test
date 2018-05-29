@@ -7,6 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceException;
+import java.util.List;
 
 @Repository
 @Transactional(readOnly = true)
@@ -16,9 +17,23 @@ public class InviteePersonRepo<T> {
     private EntityManager em;
 
     @Transactional
-    public void save(T ob) {
+    public T save(T ob) {
         try {
-            em.persist(ob);
+            return em.merge(ob);
+            //em.flush();
+        } catch (PersistenceException pe) {
+            System.out.println("============================");
+            System.out.println(pe.getMessage());
+        }
+
+        return  null;
+    }
+
+    @Transactional
+    public void saveLots(List<T> ob) {
+        try {
+            for(T it : ob)
+                em.persist(it);
             em.flush();
         } catch (PersistenceException pe) {
             System.out.println("============================");
@@ -28,7 +43,18 @@ public class InviteePersonRepo<T> {
 
     public InviteePerson find() {
         return (InviteePerson)
-                em.createQuery("select i from InviteePerson i").getResultList().get(0);
+                em.createQuery("select i from InviteePerson i join fetch i.invitation").getResultList().get(0);
+    }
+
+    public InviteePerson find(long id) {
+        return (InviteePerson)
+                em.createQuery("select i from InviteePerson i left join fetch i.invitation where i.id = :id")
+                        .setParameter("id", id)
+                        .getResultList().get(0);
+    }
+
+    public List<InviteePerson> findAll() {
+        return em.createQuery("select i from InviteePerson i left join fetch i.invitation ").getResultList();
     }
 
 }

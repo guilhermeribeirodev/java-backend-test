@@ -1,6 +1,8 @@
 package com.yoti.wedding_invite.model;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "invitee_person")
@@ -14,6 +16,10 @@ public class InviteePerson {
             generator = "invitee_person_seq")
     @Column(name = "id", updatable = false, unique = true)
     private Long id;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "from", cascade = CascadeType.ALL)
+    private Set<Invitation> invitation = new HashSet<>();
+    private String name;
 
     public void setId(long id) {
         this.id = id;
@@ -32,5 +38,17 @@ public class InviteePerson {
     @Override
     public int hashCode() {
         return id != null ? id.hashCode() : 0;
+    }
+
+    public Set<Invitation> getInvitation() {
+        return invitation;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }
