@@ -1,0 +1,31 @@
+###
+#   Database Settings
+###
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost/invite
+    platform: postgres
+    username: user
+    password: password123
+    driverClassName: org.postgresql.Driver
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQL9Dialect
+    hibernate:
+      ddl-auto: create-drop
+    properties:
+      hibernate:
+        show_sql: true
+        use_sql_comments: true
+        format_sql: true
+#  h2:
+#    console:
+#      enabled: true
+#      path: /console
+#      settings:
+#        trace: false
+#        web-allow-others: false
+
+server:
+    port: 8080
+
+
