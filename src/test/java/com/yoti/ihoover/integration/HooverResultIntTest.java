@@ -18,8 +18,8 @@ import java.util.List;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest
-@ActiveProfiles(profiles = { "test" })
+//@SpringBootTest
+//@ActiveProfiles(profiles = { "test" })
 public class HooverResultIntTest {
 
     @Autowired

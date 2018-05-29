@@ -1,1 +1,1 @@
-SELECT * FROM hoover_result
+SELECT 1
