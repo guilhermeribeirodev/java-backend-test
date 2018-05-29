@@ -37,30 +37,30 @@ public class InviteePersonIT {
     public void shouldBringInviteesNamesByPerson(){
 
         generateDataForTest();
-        InviteePerson i = new InviteePerson();
-        i.setName("gui");
-        inviteePersonRepo.save(i);
+
         InviteePerson user = inviteePersonRepo.find();
         assertThat(user.getInvitation().iterator().next().getFrom().getName(), Is.is("gui"));
+    }
+
+    @Test
+    public void shouldBringInviteesRelationByPerson(){
+
     }
 
     private void generateDataForTest() {
 
         InviteePerson user = new InviteePerson();
         user.setName("gui");
-        inviteePersonRepo.save(user);
+        user = (InviteePerson) inviteePersonRepo.save(user);
 
-        user = inviteePersonRepo.find(1L);
+        //user = inviteePersonRepo.find(1L);
 
-        List<InviteePerson> pList = new ArrayList<>();
         InviteePerson p;
         for(long i = 0 ; i < 100; i++){
             p = new InviteePerson();
             p.setName("gui "+i);
             p = (InviteePerson) inviteePersonRepo.save(p);
             user.getInvitation().add(new Invitation(user, p));
-            pList.add(p);
-
         }
 
         inviteePersonRepo.save(user);

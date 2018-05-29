@@ -54,7 +54,7 @@ public class InviteePersonRepo<T> {
     }
 
     public List<InviteePerson> findAll() {
-        return em.createQuery("select i from InviteePerson i left join fetch i.invitation ").getResultList();
+        return em.createQuery("select i from InviteePerson i left join fetch i.invitation inv join fetch inv.to").getResultList();
     }
 
 }
