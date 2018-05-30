@@ -21,6 +21,9 @@ public class InviteePerson {
     private Set<Invitation> invitation = new HashSet<>();
     private String name;
 
+    @Enumerated(EnumType.STRING)
+    private Relation relation = Relation.FRIEND;
+
     public void setId(long id) {
         this.id = id;
     }
@@ -50,5 +53,13 @@ public class InviteePerson {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Relation getRelation() {
+        return relation;
+    }
+
+    public enum Relation{
+        FRIEND,PARTNER,SIBLINGS
     }
 }

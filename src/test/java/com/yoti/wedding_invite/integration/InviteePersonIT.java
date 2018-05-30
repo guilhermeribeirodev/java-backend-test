@@ -26,20 +26,22 @@ public class InviteePersonIT {
     private InviteePersonRepo inviteePersonRepo;
 
     @Test
-    public void testCrit(){
-        inviteePersonRepo.save(new InviteePerson());
-        InviteePerson i = new InviteePerson();
-        i.setId(1L);
-        assertThat(inviteePersonRepo.find(), Is.is(i));
-    }
-
-    @Test
     public void shouldBringInviteesNamesByPerson(){
 
         generateDataForTest();
 
-        InviteePerson user = inviteePersonRepo.find();
-        assertThat(user.getInvitation().iterator().next().getFrom().getName(), Is.is("gui"));
+        InviteePerson user = inviteePersonRepo.find("gui");
+        assertThat(user.getInvitation().iterator().next().getTo().getName(), Is.is("gui"));
+    }
+
+    @Test
+    public void shouldBringInviteesNamesByRelation(){
+
+        generateDataForTest();
+
+        InviteePerson user = inviteePersonRepo.find("gui");
+        List<InviteePerson> invited = inviteePersonRepo.find(user,InviteePerson.Relation.FRIEND);
+        assertThat(user.getInvitation().iterator().next().getTo().getRelation(), Is.is(InviteePerson.Relation.FRIEND));
     }
 
     @Test
@@ -53,10 +55,10 @@ public class InviteePersonIT {
         user.setName("gui");
         user = (InviteePerson) inviteePersonRepo.save(user);
 
-        //user = inviteePersonRepo.find(1L);
+        user = inviteePersonRepo.find(1L);
 
         InviteePerson p;
-        for(long i = 0 ; i < 100; i++){
+        for(long i = 0 ; i < 4; i++){
             p = new InviteePerson();
             p.setName("gui "+i);
             p = (InviteePerson) inviteePersonRepo.save(p);
@@ -65,10 +67,10 @@ public class InviteePersonIT {
 
         inviteePersonRepo.save(user);
 
-        for(InviteePerson person : (List<InviteePerson>)inviteePersonRepo.findAll()){
-            user.getInvitation().add(new Invitation(user, person));
-        }
-        inviteePersonRepo.save(user);
+//        for(InviteePerson person : (List<InviteePerson>)inviteePersonRepo.findAll()){
+//            user.getInvitation().add(new Invitation(user, person));
+//        }
+//        inviteePersonRepo.save(user);
 
     }
 }

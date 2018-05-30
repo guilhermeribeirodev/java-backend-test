@@ -43,7 +43,7 @@ public class InviteePersonRepo<T> {
 
     public InviteePerson find() {
         return (InviteePerson)
-                em.createQuery("select i from InviteePerson i join fetch i.invitation").getResultList().get(0);
+                em.createQuery("select i from InviteePerson i join fetch i.invitation inv join fetch inv.to").getResultList().get(0);
     }
 
     public InviteePerson find(long id) {
@@ -57,4 +57,21 @@ public class InviteePersonRepo<T> {
         return em.createQuery("select i from InviteePerson i left join fetch i.invitation inv join fetch inv.to").getResultList();
     }
 
+    public InviteePerson find(String name) {
+        return (InviteePerson)
+                em.createQuery("select i from InviteePerson i join fetch i.invitation inv " +
+                "join fetch inv.to fromPerson where fromPerson.name = :name ").setParameter("name",name)
+                .getResultList().get(0);
+    }
+
+    public List<InviteePerson> find(InviteePerson user, InviteePerson.Relation relation) {
+        return
+                em.createQuery("select i from InviteePerson i join fetch i.invitation inv " +
+                        " " +
+                        " where inv.from = :user or inv.to = :user " +
+                        " and inv.to.relation = :relation ")
+                        .setParameter("user",user)
+                        .setParameter("relation",relation)
+                        .getResultList();
+    }
 }
