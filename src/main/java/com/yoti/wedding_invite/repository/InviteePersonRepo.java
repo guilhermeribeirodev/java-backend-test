@@ -1,6 +1,7 @@
 package com.yoti.wedding_invite.repository;
 
 import com.yoti.wedding_invite.model.InviteePerson;
+import com.yoti.wedding_invite.model.Relation;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -43,33 +44,33 @@ public class InviteePersonRepo<T> {
 
     public InviteePerson find() {
         return (InviteePerson)
-                em.createQuery("select i from InviteePerson i join fetch i.invitation inv join fetch inv.to").getResultList().get(0);
+                em.createQuery("select i from InviteePerson i join fetch i.invitations inv join fetch inv.to").getResultList().get(0);
     }
 
     public InviteePerson find(long id) {
         return (InviteePerson)
-                em.createQuery("select i from InviteePerson i left join fetch i.invitation where i.id = :id")
+                em.createQuery("select i from InviteePerson i left join fetch i.invitations where i.id = :id")
                         .setParameter("id", id)
                         .getResultList().get(0);
     }
 
     public List<InviteePerson> findAll() {
-        return em.createQuery("select i from InviteePerson i left join fetch i.invitation inv join fetch inv.to").getResultList();
+        return em.createQuery("select i from InviteePerson i left join fetch i.invitations inv join fetch inv.to").getResultList();
     }
 
     public InviteePerson find(String name) {
         return (InviteePerson)
-                em.createQuery("select i from InviteePerson i join fetch i.invitation inv " +
-                "join fetch inv.to fromPerson where fromPerson.name = :name ").setParameter("name",name)
+                em.createQuery("select i from InviteePerson i join fetch i.invitations inv " +
+                " where i.name = :name ").setParameter("name",name)
                 .getResultList().get(0);
     }
 
-    public List<InviteePerson> find(InviteePerson user, InviteePerson.Relation relation) {
+    public List<InviteePerson> find(InviteePerson user, Relation relation) {
         return
-                em.createQuery("select i from InviteePerson i join fetch i.invitation inv " +
+                em.createQuery("select i from InviteePerson i join fetch i.invitations inv " +
                         " " +
                         " where inv.from = :user or inv.to = :user " +
-                        " and inv.to.relation = :relation ")
+                        " and inv.relation = :relation group by i, inv")
                         .setParameter("user",user)
                         .setParameter("relation",relation)
                         .getResultList();

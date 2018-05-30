@@ -17,6 +17,9 @@ public class Invitation {
     @Column(name = "id", updatable = false, unique = true)
     private Long id;
 
+    @Enumerated(EnumType.STRING)
+    private Relation relation = Relation.FRIEND;
+
     public Invitation(InviteePerson user, InviteePerson person) {
         this.from = user;
         to = person;
@@ -53,4 +56,10 @@ public class Invitation {
     public void setFrom(InviteePerson from) {
         this.from = from;
     }
+
+    public Relation getRelation() {
+        return relation;
+    }
+
+
 }

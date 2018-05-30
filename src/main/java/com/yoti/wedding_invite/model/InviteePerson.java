@@ -18,11 +18,8 @@ public class InviteePerson {
     private Long id;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "from", cascade = CascadeType.ALL)
-    private Set<Invitation> invitation = new HashSet<>();
+    private Set<Invitation> invitations = new HashSet<>();
     private String name;
-
-    @Enumerated(EnumType.STRING)
-    private Relation relation = Relation.FRIEND;
 
     public void setId(long id) {
         this.id = id;
@@ -43,8 +40,8 @@ public class InviteePerson {
         return id != null ? id.hashCode() : 0;
     }
 
-    public Set<Invitation> getInvitation() {
-        return invitation;
+    public Set<Invitation> getInvitations() {
+        return invitations;
     }
 
     public String getName() {
@@ -53,13 +50,5 @@ public class InviteePerson {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public Relation getRelation() {
-        return relation;
-    }
-
-    public enum Relation{
-        FRIEND,PARTNER,SIBLINGS
     }
 }

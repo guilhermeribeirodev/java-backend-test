@@ -3,6 +3,7 @@ package com.yoti.wedding_invite.integration;
 import com.yoti.wedding_invite.Application;
 import com.yoti.wedding_invite.model.Invitation;
 import com.yoti.wedding_invite.model.InviteePerson;
+import com.yoti.wedding_invite.model.Relation;
 import com.yoti.wedding_invite.repository.InviteePersonRepo;
 import org.hamcrest.core.Is;
 import org.junit.Test;
@@ -12,7 +13,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -31,7 +31,7 @@ public class InviteePersonIT {
         generateDataForTest();
 
         InviteePerson user = inviteePersonRepo.find("gui");
-        assertThat(user.getInvitation().iterator().next().getTo().getName(), Is.is("gui"));
+        assertThat(user.getInvitations().iterator().next().getTo().getName(), Is.is("gui"));
     }
 
     @Test
@@ -40,8 +40,9 @@ public class InviteePersonIT {
         generateDataForTest();
 
         InviteePerson user = inviteePersonRepo.find("gui");
-        List<InviteePerson> invited = inviteePersonRepo.find(user,InviteePerson.Relation.FRIEND);
-        assertThat(user.getInvitation().iterator().next().getTo().getRelation(), Is.is(InviteePerson.Relation.FRIEND));
+        List<InviteePerson> invited = inviteePersonRepo.find(user,Relation.FRIEND);
+        assertThat(invited.iterator().next().getInvitations().iterator().next().getRelation(),
+                Is.is(Relation.FRIEND));
     }
 
     @Test
@@ -55,17 +56,16 @@ public class InviteePersonIT {
         user.setName("gui");
         user = (InviteePerson) inviteePersonRepo.save(user);
 
-        user = inviteePersonRepo.find(1L);
+        //user = inviteePersonRepo.find(1L);
 
         InviteePerson p;
         for(long i = 0 ; i < 4; i++){
             p = new InviteePerson();
             p.setName("gui "+i);
-            p = (InviteePerson) inviteePersonRepo.save(p);
-            user.getInvitation().add(new Invitation(user, p));
+            user.getInvitations().add(new Invitation(user, (InviteePerson) inviteePersonRepo.save(p)));
         }
 
-        inviteePersonRepo.save(user);
+         inviteePersonRepo.save(user);
 
 //        for(InviteePerson person : (List<InviteePerson>)inviteePersonRepo.findAll()){
 //            user.getInvitation().add(new Invitation(user, person));
