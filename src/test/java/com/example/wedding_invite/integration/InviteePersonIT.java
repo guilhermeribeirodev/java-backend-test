@@ -58,12 +58,25 @@ public class InviteePersonIT {
 
         //user = inviteePersonRepo.find(1L);
 
-        InviteePerson p;
-        for(long i = 0 ; i < 4; i++){
-            p = new InviteePerson();
-            p.setName("gui "+i);
-            user.getInvitations().add(new Invitation(user, (InviteePerson) inviteePersonRepo.save(p)));
-        }
+//        InviteePerson p;
+//        for(long i = 0 ; i < 4; i++){
+//            p = new InviteePerson();
+//            p.setName("gui "+i);
+//            user.getInvitations().add(new Invitation(user, (InviteePerson) inviteePersonRepo.save(p)));
+//        }
+
+        user.getInvitations().add(
+                new Invitation(user, (InviteePerson) inviteePersonRepo.save(new InviteePerson("bob")),
+                        Relation.FRIEND));
+        user.getInvitations().add(
+                new Invitation( (InviteePerson) inviteePersonRepo.save(new InviteePerson("alice")),
+                        user, Relation.PARTNER));
+        user.getInvitations().add(
+                new Invitation(user, (InviteePerson) inviteePersonRepo.save(new InviteePerson("john")),
+                        Relation.SIBLINGS));
+        user.getInvitations().add(
+                new Invitation( (InviteePerson) inviteePersonRepo.save(new InviteePerson("jimmy")),
+                        user, Relation.FRIEND));
 
          inviteePersonRepo.save(user);
 

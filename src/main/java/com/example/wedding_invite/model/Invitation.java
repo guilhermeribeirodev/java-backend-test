@@ -18,9 +18,10 @@ public class Invitation {
     @Enumerated(EnumType.STRING)
     private Relation relation = Relation.FRIEND;
 
-    public Invitation(InviteePerson user, InviteePerson person) {
-        this.from = user;
-        to = person;
+    public Invitation(InviteePerson from, InviteePerson to, Relation relation) {
+        this.from = from;
+        this.to = to;
+        this.relation = relation;
     }
 
     public Invitation() { }

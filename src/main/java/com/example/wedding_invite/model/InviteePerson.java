@@ -21,6 +21,13 @@ public class InviteePerson {
     private Set<Invitation> invitations = new HashSet<>();
     private String name;
 
+    public InviteePerson(String name) {
+        this.name = name;
+    }
+
+    public InviteePerson() {
+    }
+
     public void setId(long id) {
         this.id = id;
     }
