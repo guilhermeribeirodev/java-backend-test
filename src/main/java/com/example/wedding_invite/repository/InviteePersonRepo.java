@@ -67,10 +67,10 @@ public class InviteePersonRepo<T> {
 
     public List<InviteePerson> find(InviteePerson user, Relation relation) {
         return
-                em.createQuery("select inv.from.name, inv.to.name from InviteePerson i join i.invitations inv " +
+                em.createQuery("select inv.from.name, inv.to.name, inv.relation from InviteePerson i join i.invitations inv " +
                         " " +
                         " where inv.from = :user or inv.to = :user " +
-                        " and inv.relation = :relation ")
+                        " and inv.relation = :relation group by inv.from.name, inv.to.name, inv.relation")
                         .setParameter("user",user)
                         .setParameter("relation",relation)
                         .getResultList();
