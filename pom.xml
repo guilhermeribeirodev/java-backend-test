@@ -8,7 +8,7 @@
 
   <properties>
     <java.version>1.8</java.version>
-    <start-class>com.yoti.ihoover.Application</start-class>
+    <start-class>com.example.ihoover.Application</start-class>
   </properties>
 
   <parent>
