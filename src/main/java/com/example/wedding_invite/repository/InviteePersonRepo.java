@@ -1,6 +1,8 @@
 package com.example.wedding_invite.repository;
 
+import com.example.wedding_invite.model.Invitation;
 import com.example.wedding_invite.model.InviteePerson;
+import com.example.wedding_invite.model.InviteePerson_;
 import com.example.wedding_invite.model.Relation;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -8,6 +10,12 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceException;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 
 @Repository
@@ -58,16 +66,28 @@ public class InviteePersonRepo<T> {
         return em.createQuery("select i from InviteePerson i left join fetch i.invitations inv join fetch inv.to").getResultList();
     }
 
+    public List<InviteePerson> findCriteria(String name){ Date today = new Date();
+
+        CriteriaBuilder builder = em.getCriteriaBuilder();
+        CriteriaQuery<InviteePerson> query = builder.createQuery(InviteePerson.class);
+        Root<InviteePerson> root = query.from(InviteePerson.class);
+
+        Predicate hasBirthday = builder.equal(root.get(InviteePerson_.name), name);
+        //Predicate isLongTermCustomer = builder.lessThan(root.get(InviteePerson_.createdAt), today);
+        query.where(builder.and(hasBirthday));
+        return em.createQuery(query.select(root)).getResultList();
+    }
+
     public InviteePerson find(String name) {
         return (InviteePerson)
-                em.createQuery("select i from InviteePerson i join fetch i.invitations inv " +
+                em.createQuery("select i from InviteePerson i left join fetch i.invitations inv " +
                 " where i.name = :name ").setParameter("name",name)
                 .getResultList().get(0);
     }
 
     public List<InviteePerson> find(InviteePerson user, Relation relation) {
         return
-                em.createQuery("select inv.from.name, inv.to.name, inv.relation from InviteePerson i join i.invitations inv " +
+                em.createQuery("select new com.example.wedding_invite.model.InvitationDTO( inv.from.name, inv.to.name, inv.relation) from InviteePerson i join i.invitations inv " +
                         " " +
                         " where inv.from = :user or inv.to = :user " +
                         " and inv.relation = :relation group by inv.from.name, inv.to.name, inv.relation")

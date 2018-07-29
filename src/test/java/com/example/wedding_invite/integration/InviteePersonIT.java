@@ -2,6 +2,7 @@ package com.example.wedding_invite.integration;
 
 import com.example.wedding_invite.Application;
 import com.example.wedding_invite.model.Invitation;
+import com.example.wedding_invite.model.InvitationDTO;
 import com.example.wedding_invite.model.InviteePerson;
 import com.example.wedding_invite.model.Relation;
 import com.example.wedding_invite.repository.InviteePersonRepo;
@@ -31,7 +32,7 @@ public class InviteePersonIT {
         generateDataForTest();
 
         InviteePerson user = inviteePersonRepo.find("gui");
-        assertThat(user.getInvitations().iterator().next().getTo().getName(), Is.is("gui"));
+        assertThat(user.getName(), Is.is("gui"));
     }
 
     @Test
@@ -40,15 +41,21 @@ public class InviteePersonIT {
         generateDataForTest();
 
         InviteePerson user = inviteePersonRepo.find("gui");
-        List<InviteePerson> invited = inviteePersonRepo.find(user,Relation.FRIEND);
-        assertThat(invited.iterator().next().getInvitations().iterator().next().getRelation(),
+        List<InvitationDTO> invited = inviteePersonRepo.find(user,Relation.FRIEND);
+        InvitationDTO me = invited.iterator().next();
+        assertThat(me.getRelation(),
                 Is.is(Relation.FRIEND));
     }
 
     @Test
     public void shouldBringInviteesRelationByPerson(){
+        generateDataForTest();
 
+        List<InvitationDTO> invited = inviteePersonRepo.findCriteria("gui");
     }
+
+
+
 
     private void generateDataForTest() {
 

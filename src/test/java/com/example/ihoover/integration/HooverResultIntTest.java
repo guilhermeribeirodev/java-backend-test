@@ -6,6 +6,7 @@ import org.hamcrest.core.Is;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.ArrayList;
@@ -15,12 +16,12 @@ import java.util.List;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 @RunWith(SpringRunner.class)
-//@SpringBootTest
+@SpringBootTest
 //@ActiveProfiles(profiles = { "test" })
 public class HooverResultIntTest {
 
     @Autowired
-    HooverResultRepository hooverResultRepository;
+    private HooverResultRepository hooverResultRepository;
 
     final int[] patches = new int[]{5,6};
     final List<Integer> integerList = new ArrayList<>(Arrays.asList(2,3));
@@ -39,6 +40,8 @@ public class HooverResultIntTest {
         hoover.setId(1L);
         assertThat(hooverResultRepository.findAllByBuilder().next(), Is.is(hoover));
     }
+
+
 
 //    @Test
 //    public void list(){
