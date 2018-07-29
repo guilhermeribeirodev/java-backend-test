@@ -1,19 +1,15 @@
 package com.example.wedding_invite.repository;
 
-import com.example.wedding_invite.model.Invitation;
-import com.example.wedding_invite.model.InviteePerson;
+import com.example.wedding_invite.model.*;
+import com.example.wedding_invite.model.Invitation_;
 import com.example.wedding_invite.model.InviteePerson_;
-import com.example.wedding_invite.model.Relation;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceException;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
+import javax.persistence.criteria.*;
 import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
@@ -66,16 +62,16 @@ public class InviteePersonRepo<T> {
         return em.createQuery("select i from InviteePerson i left join fetch i.invitations inv join fetch inv.to").getResultList();
     }
 
-    public List<InviteePerson> findCriteria(String name){ Date today = new Date();
+    public List<Invitation> findCriteria(String name){ Date today = new Date();
 
         CriteriaBuilder builder = em.getCriteriaBuilder();
-        CriteriaQuery<InviteePerson> query = builder.createQuery(InviteePerson.class);
+        CriteriaQuery<Invitation> query = builder.createQuery(Invitation.class);
         Root<InviteePerson> root = query.from(InviteePerson.class);
-
+        Join<InviteePerson, Invitation> invitationJoin = root.join(InviteePerson_.invitations);
         Predicate hasBirthday = builder.equal(root.get(InviteePerson_.name), name);
         //Predicate isLongTermCustomer = builder.lessThan(root.get(InviteePerson_.createdAt), today);
         query.where(builder.and(hasBirthday));
-        return em.createQuery(query.select(root)).getResultList();
+        return em.createQuery(query.select(invitationJoin)).getResultList();
     }
 
     public InviteePerson find(String name) {
